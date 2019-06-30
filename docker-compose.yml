@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./web:/web
+      - ./nginx:/nginx
+    ports:
+      - "180:80"
+    depends_on:
+      - redis
+    networks:
+      - backend
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "16379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
